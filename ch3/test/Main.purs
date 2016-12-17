@@ -24,7 +24,6 @@ showBook = show <<< map showEntry
 
 main :: forall e. Eff (console :: CONSOLE | e) Unit
 main = do
-  -- logShow $ showEntry $ entry "first" "last" $ address "Teststreet 1" "Testcity" "TE."
   logShow $ map showEntry (findEntryByStreet "Teststreet" emptyBook)
   logShow $ map showEntry (findEntryByStreet "Teststreet" (insertEntry (entry "first" "last" $ address "Teststreet" "Testcity" "TE.") emptyBook))
   logShow $ includesName "first" "last" emptyBook
