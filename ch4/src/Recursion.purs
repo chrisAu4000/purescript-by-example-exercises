@@ -1,6 +1,6 @@
 module Recursion where
 import Control.MonadPlus (guard)
-import Data.Array (filter, foldl, length, (..))
+import Data.Array (filter, foldl, length, (..), (:))
 import Data.Array.Partial (head, tail)
 import Partial.Unsafe (unsafePartial)
 import Prelude (bind, map, pure, ($), (*), (+), (-), (/), (<), (==), (>=), (&&), (<>))
@@ -63,13 +63,14 @@ triples n = do
   pure [a, b, (a*a + b*b)]
 
 -- 4.11 Exercise 4
-factorizations :: Int -> Array Int
-factorizations 1 = [1]
-factorizations n = do
-  f <- 2 .. n
-  guard $ isPrime f
-  guard $ (n / f) * f == n
-  pure f
+factorisations :: Int -> Array Int
+factorisations i = fact (filter isPrime (2 .. i)) i where
+  fact :: Array Int -> Int -> Array Int
+  fact [] n = []
+  fact a n =
+    if (n / (unsafePartial head a)) * (unsafePartial head a) == n
+    then (unsafePartial head a) : fact a (n / (unsafePartial head a))
+    else fact (unsafePartial tail a) n
 
 -- 4.15 Exercise 1
 allTrue :: Array Boolean -> Boolean
