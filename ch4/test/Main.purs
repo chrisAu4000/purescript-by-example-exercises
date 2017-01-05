@@ -3,7 +3,7 @@ module Test.Main where
 import Prelude
 import Control.Monad.Eff (Eff)
 import Control.Monad.Eff.Console (CONSOLE, logShow)
-import Recursion (allTrue, count, countEven, factorizations, factors, isEven, isPrime, removeNegative, removeNegative', reverse, square)
+import Recursion (allTrue, count, countEven, factorisations, factors, isEven, isPrime, removeNegative, removeNegative', reverse, square)
 main :: forall e. Eff (console :: CONSOLE | e) Unit
 main = do
   logShow $ (isEven 33) == false
@@ -15,7 +15,8 @@ main = do
   logShow $ (factors 16) == [[1,16],[2,8],[4,4]]
   logShow $ (isPrime 31) == true
   logShow $ (isPrime 26) == false
-  logShow $ (factorizations 14) == [2,7]
+  logShow $ (factorisations 14) == [2,7]
+  logShow $ (factorisations 333) == [3,3,37]
   logShow $ (allTrue [true, true, true]) == true
   logShow $ (allTrue [true, true, false]) == false
   logShow $ (count (\b -> b == true) [true, true, false]) == 2
